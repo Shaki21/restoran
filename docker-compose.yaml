@@ -1,0 +1,36 @@
+version: "3.8"  # Specify the Docker Compose version
+
+services:
+  # Backend service
+  backend:
+    build: .  # Build the image from the current directory (replace with your build path if different)
+    ports:
+      - "5000:5000"  # Map container port 5000 to host port 5000
+    environment:
+      - DB_URL=postgresql://postgres:brunoante@localhost:5432/restoran # Set the database URL
+  # Redis service
+  redis:
+    image: redis/redis-stack:latest  # Use Redis Stack image
+    ports:
+      - "6379:6379"  # Map container port 6379 to host port 6379 (standard Redis port)
+      - "8001:8001"
+    volumes:
+      - redis-data:/data  # Persistant storage for Redis data
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+      image: wurstmeister/kafka
+      ports:
+        - "9092:9092"
+      environment:
+        KAFKA_ADVERTISED_HOST_NAME: localhost
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+volumes:
+  # Volume for Redis data (optional)
+  redis-data: {}
