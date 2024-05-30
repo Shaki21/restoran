@@ -1,4 +1,5 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
+from pydantic import AnyHttpUrl, HttpUrl
 import os
 from dotenv import load_dotenv
 
@@ -11,12 +12,9 @@ class Settings(BaseSettings):
     POSTGRES_USER: str = os.getenv("POSTGRES_USER")
     POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")
     POSTGRES_HOST: str = os.getenv("POSTGRES_HOST")
-    POSTGRES_PORT: str = os.getenv("POSTGRES_PORT")
+    POSTGRES_PORT: int = os.getenv("POSTGRES_PORT")
     POSTGRES_DB: str = os.getenv("POSTGRES_DB")
     POSTGRES_URL: str = os.getenv("POSTGRES_URL")
-
-    class Config:
-        env_file = ".env"
 
 
 settings = Settings()

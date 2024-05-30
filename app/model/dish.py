@@ -1,8 +1,10 @@
-from sqlalchemy import Column, Integer, String, relationship
-from sqlalchemy import declarative_base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import DeclarativeBase
 
 
-Base = declarative_base()
+class Base(DeclarativeBase):
+    pass
 
 
 class Dish(Base):
@@ -12,5 +14,4 @@ class Dish(Base):
     name = Column(String, index=True)
     price = Column(Integer)
 
-
-Dish.orders = relationship("OrderItem", back_populates="dish")
+    orders = relationship("OrderItem", back_populates="dish")

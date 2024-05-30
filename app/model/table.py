@@ -1,9 +1,10 @@
-from sqlalchemy import Column, Integer, Boolean, relationship
-from sqlalchemy import declarative_base
-from app.model.order import Order
+from sqlalchemy import Column, Integer, Boolean
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import DeclarativeBase
 
 
-Base = declarative_base()
+class Base(DeclarativeBase):
+    pass
 
 
 class Table(Base):
@@ -13,6 +14,4 @@ class Table(Base):
     number = Column(Integer, index=True)
     status = Column(Boolean, default=True)
 
-
-Table.orders = relationship("Order", order_by=Order.id, back_populates="table")
-
+    orders = relationship("Order", back_populates="table")

@@ -1,8 +1,10 @@
-from sqlalchemy import Column, Integer, relationship, ForeignKey
-from sqlalchemy import declarative_base
+from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import DeclarativeBase
 
 
-Base = declarative_base()
+class Base(DeclarativeBase):
+    pass
 
 
 class OrderItem(Base):

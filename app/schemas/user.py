@@ -1,17 +1,21 @@
 from pydantic import BaseModel
+from app.model.user import RoleEnum
 
 
 class UserBase(BaseModel):
-    name: str
-    role: str
+    username: str
+    password: str
+    role: RoleEnum
 
 
 class UserCreate(UserBase):
     pass
 
 
-class User(UserBase):
+class UserDisplay(UserBase):
     id: int
+    username: str
+    role: RoleEnum
 
     class Config:
-        orm_mode = True
+        from_attributes = True

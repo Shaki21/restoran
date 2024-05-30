@@ -1,18 +1,26 @@
-from sqlalchemy import Column, Integer, String, DateTime, relationship
-from sqlalchemy.ext.declarative import declarative_base
-from app.model.order import Order
+import enum
+from sqlalchemy import Column, Integer, String, Enum
+from sqlalchemy.orm import relationship
+from app.core.database import Base
 
 
-Base = declarative_base()
+class RoleEnum(str, enum.Enum):
+    ADMIN = "ADMIN"
+    MANAGER = "MANAGER"
 
 
 class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    role = Column(String, index=True)
-    created_at = Column(DateTime)
+    username: str = Column(String, index=True)
+    password: str = Column(String, nullable=False)
+    role: str = Column(String, Enum(RoleEnum), nullable=False)
 
+    orders = relationship("Order", back_populates="user")
 
-User.orders = relationship("Order", order_by=Order.id, back_populates="user")
+    def is_admin(self):
+        return self.role == RoleEnum.ADMIN
+
+    def is_manager(self):
+        return self.role == RoleEnum.MANAGER

@@ -1,8 +1,10 @@
-from sqlalchemy import Column, Integer, relationship, ForeignKey, DateTime
-from sqlalchemy import declarative_base
+from sqlalchemy import Column, Integer, ForeignKey, DateTime
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import DeclarativeBase
 
 
-Base = declarative_base()
+class Base(DeclarativeBase):
+    pass
 
 
 class Order(Base):
@@ -15,3 +17,4 @@ class Order(Base):
 
     table = relationship("Table", back_populates="orders")
     user = relationship("User", back_populates="orders")
+    items = relationship("OrderItem", back_populates="order")
