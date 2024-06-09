@@ -1,16 +1,27 @@
 import uvicorn
 from fastapi import FastAPI
-from app.api.routes import user_router
-from app.core.database import engine, Base
+from app.api.routes import include_routes
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
 
-# Kreiraj sve tablice u bazi
-Base.metadata.create_all(bind=engine)
+# Ukljuci sve rute
+include_routes(app)
 
-# Ukljuci rutu za korisnike
-app.include_router(user_router, prefix="/users", tags=["users"])
+
+origins = {
+    "http://localhost"
+}
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")

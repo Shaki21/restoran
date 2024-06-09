@@ -1,5 +1,4 @@
 from pydantic_settings import BaseSettings
-from pydantic import AnyHttpUrl, HttpUrl
 import os
 from dotenv import load_dotenv
 

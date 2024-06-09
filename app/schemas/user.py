@@ -4,18 +4,15 @@ from app.model.user import RoleEnum
 
 class UserBase(BaseModel):
     username: str
-    password: str
     role: RoleEnum
 
 
 class UserCreate(UserBase):
-    pass
+    password: str
 
 
 class UserDisplay(UserBase):
     id: int
-    username: str
-    role: RoleEnum
 
     class Config:
         from_attributes = True

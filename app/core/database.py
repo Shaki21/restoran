@@ -1,9 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.core.config import settings
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import declarative_base
 
-DATABASE_URL = settings.POSTGRES_URL
+DATABASE_URL = f'postgresql://postgres:brunoante@localhost:5432/restoran-python'
 
 engine = create_engine(DATABASE_URL)
 
@@ -13,8 +12,7 @@ SessionLocal = sessionmaker(
     bind=engine)
 
 
-class Base (DeclarativeBase):
-    pass
+Base = declarative_base()
 
 
 def get_db():
@@ -23,3 +21,6 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+Base.metadata.create_all(bind=engine)

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="restoran@localhost" uuid="5b50d5c4-fd4b-4059-b23a-0d0641dcbaee">
+    <data-source source="LOCAL" name="restoran-python" uuid="1c5db058-355e-42ff-8cd2-12bd1366b7bb">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/restoran</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/restoran-python</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

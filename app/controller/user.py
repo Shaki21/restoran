@@ -1,9 +1,7 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-
-from app.core.hash import Hash
 from app.model.user import User
-from app.schemas.user import UserCreate
+from app.core.hash import Hash
 
 
 class UserController:
@@ -27,25 +25,9 @@ class UserController:
         except:
             raise HTTPException(status_code=400, detail="Something went wrong!")
 
-
-def get_user(db: Session, user_id: int):
-    return db.query(User).filter(User.id == user_id).first()
-
-
-def get_users(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(User).offset(skip).limit(limit).all()
-
-
-def update_user(db: Session, user_id: int, user: UserCreate):
-    db_user = db.query(User).filter(User.id == user_id).first()
-    for key, value in user.dict().items():
-        setattr(db_user, key, value)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
-
-
-def delete_user(db: Session, user_id: int):
-    db_user = db.query(User).filter(User.id == user_id).first()
-    db.delete(db_user)
-    db.commit()
+    def get_user_by_id(self, id: int):
+        user = self.db.query(User).filter(User.id == id).first()
+        if not user:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail=f'User with id {id} not found!')
+        return user
