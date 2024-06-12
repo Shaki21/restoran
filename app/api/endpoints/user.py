@@ -11,15 +11,15 @@ router = APIRouter(
 
 
 @router.post("/", response_model=UserDisplay)
-def create_user(request: UserCreate, db: Session = Depends(get_db)):
+async def create_user(request: UserCreate, db: Session = Depends(get_db)):
     return UserController(db=db).create_user(request=request)
 
 
 @router.get("/{id}", response_model=UserDisplay)
-def get_user(id: int, db: Session = Depends(get_db)):
+async def get_user(id: int, db: Session = Depends(get_db)):
     return UserController(db=db).get_user_by_id(id=id)
 
 
 @router.delete("/{id}", response_model=UserDelete)
-def delete_user(id: int, db: Session = Depends(get_db)):
+async def delete_user(id: int, db: Session = Depends(get_db)):
     return UserController(db=db).delete_user(id=id)
