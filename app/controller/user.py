@@ -22,8 +22,8 @@ class UserController:
             self.db.commit()
             self.db.refresh(new_user)
             return new_user
-        except:
-            raise HTTPException(status_code=400, detail="Something went wrong!")
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=str(e))
 
     def get_user_by_id(self, id: int):
         user = self.db.query(User).filter(User.id == id).first()
@@ -31,3 +31,12 @@ class UserController:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                 detail=f'User with id {id} not found!')
         return user
+
+    def delete_user(self, id: int):
+        user = self.db.query(User).filter(User.id == id).first()
+        if not user:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail=f'User with id {id} not found!')
+        self.db.delete(user)
+        self.db.commit()
+        return {"detail": 'user deleted!'}
