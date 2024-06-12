@@ -4,6 +4,7 @@ from app.controller.dish import DishController
 from app.schemas.dish import DishCreate, DishDisplay, DishDelete, DishUpdate, DishName
 from app.core.database import get_db
 
+
 router = APIRouter(
     prefix='/dishes',
     tags=['dishes']
