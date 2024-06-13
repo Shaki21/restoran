@@ -20,6 +20,11 @@ async def get_user(id: int, db: Session = Depends(get_db)):
     return UserController(db=db).get_user_by_id(id=id)
 
 
+@router.get("/", response_model=list[UserDisplay])
+async def get_users(db: Session = Depends(get_db)):
+    return UserController(db=db).get_all_users()
+
+
 @router.delete("/{id}", response_model=UserDelete)
 async def delete_user(id: int, db: Session = Depends(get_db)):
     return UserController(db=db).delete_user(id=id)

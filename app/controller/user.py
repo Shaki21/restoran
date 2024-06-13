@@ -32,6 +32,10 @@ class UserController:
                                 detail=f'User with id {id} not found!')
         return user
 
+    def get_all_users(self):
+        users = self.db.query(User).all()
+        return users
+
     def delete_user(self, id: int):
         user = self.db.query(User).filter(User.id == id).first()
         if not user:
