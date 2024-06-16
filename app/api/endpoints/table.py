@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.controller.table import TableController
 from app.schemas.table import TableCreate, TableDisplay, TableDelete
 from app.core.database import get_db
+from app.core.auth import is_admin, is_manager, get_current_user
 
 router = APIRouter(
     prefix='/tables',
@@ -11,12 +12,12 @@ router = APIRouter(
 
 
 @router.post("/", response_model=TableDisplay)
-async def create_table(request: TableCreate, db: Session = Depends(get_db)):
+async def create_table(request: TableCreate, db: Session = Depends(get_db), current_user: TableDisplay = Depends(is_admin)):
     return TableController(db=db).create_table(request=request)
 
 
 @router.get("/{id}", response_model=TableDisplay)
-async def get_table(id: int, db: Session = Depends(get_db)):
+async def get_table(id: int, db: Session = Depends(get_db), current_user: TableDisplay = Depends(is_manager)):
     return TableController(db=db).get_table_by_id(id=id)
 
 
@@ -26,5 +27,5 @@ async def get_tables(db: Session = Depends(get_db)):
 
 
 @router.delete("/{id}", response_model=TableDelete)
-async def delete_table(id: int, db: Session = Depends(get_db)):
+async def delete_table(id: int, db: Session = Depends(get_db), current_user: TableDisplay = Depends(is_admin)):
     return TableController(db=db).delete_table(id=id)
