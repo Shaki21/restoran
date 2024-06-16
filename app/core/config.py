@@ -15,5 +15,9 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = os.getenv("POSTGRES_DB")
     POSTGRES_URL: str = os.getenv("POSTGRES_URL")
 
+    SECRET_KEY: str = os.getenv("SECRET_KEY")
+    ALGORITHM: str = os.getenv("ALGORITHM")
+    ACCESS_TOKEN_EXPIRATION_MIN: int = os.getenv("ACCESS_TOKEN_EXPIRATION_MIN")
+
 
 settings = Settings()

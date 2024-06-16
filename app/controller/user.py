@@ -25,6 +25,13 @@ class UserController:
         except Exception as e:
             raise HTTPException(status_code=400, detail=str(e))
 
+    def get_user_by_username(self, username: str):
+        user = self.db.query(User).filter(User.username == username).first()
+        if not user:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail=f'User {username} not found!')
+        return user
+
     def get_user_by_id(self, id: int):
         user = self.db.query(User).filter(User.id == id).first()
         if not user:
