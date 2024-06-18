@@ -18,12 +18,12 @@ async def create_drink(request: DrinkCreate, db: Session = Depends(get_db), curr
 
 
 @router.get("/{id}", response_model=DrinkDisplay)
-async def get_drink_by_id(id: int, db: Session = Depends(get_db), current_user: DrinkDisplay = Depends(is_manager)):
+async def get_drink_by_id(id: int, db: Session = Depends(get_db), current_user: DrinkDisplay = Depends(is_admin)):
     return DrinkController(db=db).get_drink_by_id(id=id)
 
 
 @router.get("/name/{name}", response_model=DrinkName)
-async def get_drink_by_name(name: str, db: Session = Depends(get_db), current_user: DrinkDisplay = Depends(is_manager)):
+async def get_drink_by_name(name: str, db: Session = Depends(get_db), current_user: DrinkDisplay = Depends(is_admin)):
     return DrinkController(db=db).get_drink_by_name(name=name)
 
 

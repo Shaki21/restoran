@@ -22,3 +22,4 @@ python-sql == 1.4.0
 pydantic-settings == 2.2.1
 python-jose == 3.3.0
 starlette~=0.37.2
+redis==5.0.6

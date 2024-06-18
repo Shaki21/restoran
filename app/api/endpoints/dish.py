@@ -18,12 +18,12 @@ async def create_dish(request: DishCreate, db: Session = Depends(get_db), curren
 
 
 @router.get("/{id}", response_model=DishDisplay)
-async def get_dish_by_id(id: int, db: Session = Depends(get_db), current_user: DishDisplay = Depends(is_manager)):
+async def get_dish_by_id(id: int, db: Session = Depends(get_db), current_user: DishDisplay = Depends(is_admin)):
     return DishController(db=db).get_dish_by_id(id=id)
 
 
 @router.get("/name/{name}", response_model=DishName)
-async def get_dish_by_name(name: str, db: Session = Depends(get_db), current_user: DishDisplay = Depends(is_manager)):
+async def get_dish_by_name(name: str, db: Session = Depends(get_db), current_user: DishDisplay = Depends(is_admin)):
     return DishController(db=db).get_dish_by_name(name=name)
 
 

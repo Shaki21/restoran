@@ -17,7 +17,7 @@ async def create_table(request: TableCreate, db: Session = Depends(get_db), curr
 
 
 @router.get("/{id}", response_model=TableDisplay)
-async def get_table(id: int, db: Session = Depends(get_db), current_user: TableDisplay = Depends(is_manager)):
+async def get_table(id: int, db: Session = Depends(get_db), current_user: TableDisplay = Depends(is_admin)):
     return TableController(db=db).get_table_by_id(id=id)
 
 
