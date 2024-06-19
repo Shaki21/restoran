@@ -41,15 +41,6 @@ class DrinkController:
         drinks = self.db.query(Drink).all()
         return drinks
 
-    def delete_drink(self, id: int):
-        drink = self.db.query(Drink).filter(Drink.id == id).first()
-        if not drink:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                                detail=f'Drink with id {id} not found!')
-        self.db.delete(drink)
-        self.db.commit()
-        return {"detail": 'drink deleted!'}
-
     def update_drink(self, id: int, request):
         drink = self.db.query(Drink).filter(Drink.id == id).first()
         if not drink:
@@ -59,3 +50,12 @@ class DrinkController:
         drink.price = request.price
         self.db.commit()
         return drink
+
+    def delete_drink(self, id: int):
+        drink = self.db.query(Drink).filter(Drink.id == id).first()
+        if not drink:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail=f'Drink with id {id} not found!')
+        self.db.delete(drink)
+        self.db.commit()
+        return {"detail": 'drink deleted!'}

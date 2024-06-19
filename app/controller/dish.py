@@ -41,15 +41,6 @@ class DishController:
         dishes = self.db.query(Dish).all()
         return dishes
 
-    def delete_dish(self, id: int):
-        dish = self.db.query(Dish).filter(Dish.id == id).first()
-        if not dish:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                                detail=f'Dish with id {id} not found!')
-        self.db.delete(dish)
-        self.db.commit()
-        return {"detail": 'dish deleted!'}
-
     def update_dish(self, id: int, request):
         dish = self.db.query(Dish).filter(Dish.id == id).first()
         if not dish:
@@ -59,3 +50,12 @@ class DishController:
         dish.price = request.price
         self.db.commit()
         return dish
+
+    def delete_dish(self, id: int):
+        dish = self.db.query(Dish).filter(Dish.id == id).first()
+        if not dish:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail=f'Dish with id {id} not found!')
+        self.db.delete(dish)
+        self.db.commit()
+        return {"detail": 'dish deleted!'}

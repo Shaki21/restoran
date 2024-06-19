@@ -1,24 +1,12 @@
 from typing import Optional
-import base64
-from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from jose import jwt, JWTError
-
-from pydantic import BaseModel
-
-from fastapi import Depends, FastAPI, HTTPException, status
-from fastapi.encoders import jsonable_encoder
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2
-from fastapi.security.base import SecurityBase
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2
 from fastapi.security.utils import get_authorization_scheme_param
-from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
-from fastapi.openapi.utils import get_openapi
-
 from starlette.status import HTTP_403_FORBIDDEN
-from starlette.responses import RedirectResponse, Response, JSONResponse
 from starlette.requests import Request
-
 from app.core.database import get_db
 from app.controller.user import UserController, User
 from app.schemas.user import TokenData
@@ -113,4 +101,3 @@ def is_manager(current_user: User = Depends(get_current_active_user)):
     if not current_user.is_manager():
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User is not manager")
     return current_user
-

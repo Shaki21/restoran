@@ -11,6 +11,6 @@ def include_routes(app: FastAPI):
     app.include_router(user_router)
     app.include_router(dish_router)
     app.include_router(drink_router)
-    app.include_router(table_router)
     app.include_router(order_router)
+    app.include_router(table_router)
     app.include_router(auth_router)

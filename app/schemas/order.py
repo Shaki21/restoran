@@ -1,6 +1,5 @@
 from typing import Optional
-
-from pydantic import BaseModel, condecimal
+from pydantic import BaseModel
 
 
 class OrderBase(BaseModel):
@@ -25,7 +24,6 @@ class OrderDisplay(BaseModel):
 class OrderUpdate(BaseModel):
     dish_id: Optional[int] = None
     drink_id: Optional[int] = None
-    price: Optional[condecimal(max_digits=10, decimal_places=2)] = None
 
     class Config:
         orm_mode = True

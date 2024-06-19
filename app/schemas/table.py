@@ -1,9 +1,9 @@
+from typing import Optional
 from pydantic import BaseModel
 
 
 class TableBase(BaseModel):
     number: int
-    status: bool
 
 
 class TableCreate(TableBase):
@@ -12,6 +12,7 @@ class TableCreate(TableBase):
 
 class TableDisplay(TableBase):
     id: int
+    order_id: Optional[int] = None
 
     class Config:
         from_attributes = True
