@@ -12,7 +12,7 @@ router = APIRouter(
 
 
 @router.post("/", response_model=UserDisplay)
-async def create_user(request: UserCreate, db: Session = Depends(get_db), current_user: UserDisplay = Depends(is_admin)):
+async def create_user(request: UserCreate, db: Session = Depends(get_db)):
     return UserController(db=db).create_user(request=request)
 
 
