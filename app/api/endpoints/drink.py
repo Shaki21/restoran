@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.controller.drink import DrinkController
+from app.core.redis import redis_client
 from app.schemas.drink import DrinkCreate, DrinkDisplay, DrinkDelete, DrinkUpdate, DrinkName
 from app.core.database import get_db
 from app.core.auth import is_admin
-
+from app.utils.redis import serialize, deserialize
 
 router = APIRouter(
     prefix='/drinks',
@@ -22,7 +23,14 @@ async def create_drink(
 
 @router.get("/", response_model=list[DrinkDisplay])
 async def get_all_drinks(db: Session = Depends(get_db)):
-    return DrinkController(db=db).get_all_drinks()
+    drinks = redis_client.get('drinks')
+    if not drinks:
+        drinks = DrinkController(db=db).get_all_drinks()
+        drinks_display = [DrinkDisplay.from_orm(drink) for drink in drinks]
+        redis_client.set('drinks', serialize(drinks_display))
+    else:
+        drinks = deserialize(drinks, DrinkDisplay)
+    return drinks
 
 
 @router.get("/{id}", response_model=DrinkDisplay)

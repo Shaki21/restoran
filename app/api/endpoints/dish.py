@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.controller.dish import DishController
+from app.core.redis import redis_client
 from app.schemas.dish import DishCreate, DishDisplay, DishDelete, DishUpdate, DishName
 from app.core.database import get_db
 from app.core.auth import is_admin
-
+from app.utils.redis import serialize, deserialize
 
 router = APIRouter(
     prefix='/dishes',
@@ -22,7 +23,14 @@ async def create_dish(
 
 @router.get("/", response_model=list[DishDisplay])
 async def get_all_dishes(db: Session = Depends(get_db)):
-    return DishController(db=db).get_all_dishes()
+    dishes = redis_client.get('dishes')
+    if not dishes:
+        dishes = DishController(db=db).get_all_dishes()
+        dishes_display = [DishDisplay.from_orm(dish) for dish in dishes]
+        redis_client.set('dishes', serialize(dishes_display))
+    else:
+        dishes = deserialize(dishes, DishDisplay)
+    return dishes
 
 
 @router.get("/{id}", response_model=DishDisplay)
