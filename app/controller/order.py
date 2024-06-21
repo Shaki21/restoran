@@ -1,10 +1,10 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session, joinedload
 
-from app.model.dish import Dish
-from app.model.drink import Drink
-from app.model.order import Order
-from app.schemas.order import OrderUpdate
+from model.dish import Dish
+from model.drink import Drink
+from model.order import Order
+from schemas.order import OrderUpdate
 
 
 class OrderController:

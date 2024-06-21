@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.model.dish import Dish
-from app.model.drink import Drink
+from model.dish import Dish
+from model.drink import Drink
 
 
 class OrderController:

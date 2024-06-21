@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from app.model.table import Table
+from model.table import Table
 
 
 class TableController:

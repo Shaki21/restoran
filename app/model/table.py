@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
-from app.core.database import Base
-from app.model.order import Order
+from core.database import Base
+from model.order import Order
 
 
 class Table(Base):

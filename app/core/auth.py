@@ -7,9 +7,9 @@ from fastapi.security.utils import get_authorization_scheme_param
 from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
 from starlette.status import HTTP_403_FORBIDDEN
 from starlette.requests import Request
-from app.core.database import get_db
-from app.controller.user import UserController, User
-from app.schemas.user import TokenData
+from core.database import get_db
+from controller.user import UserController, User
+from schemas.user import TokenData
 from sqlalchemy.orm import Session
 
 SECRET_KEY = '0b6535c5a840f0f37516b60d514d241d5af2f851f23aba2ee8b6e6ac5e5e61dc'

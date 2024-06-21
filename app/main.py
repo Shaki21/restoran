@@ -1,9 +1,9 @@
 import uvicorn
 from fastapi import FastAPI
-from app.api.routes import include_routes
+from api.routes import include_routes
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
-from app.core.database import Base, engine
+from core.database import Base, engine
 
 
 app = FastAPI()

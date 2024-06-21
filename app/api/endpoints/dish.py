@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.controller.dish import DishController
-from app.core.redis import redis_client
-from app.schemas.dish import DishCreate, DishDisplay, DishDelete, DishUpdate, DishName
-from app.core.database import get_db
-from app.core.auth import is_admin
-from app.utils.redis import serialize, deserialize
+from controller.dish import DishController
+from core.redis import redis_client
+from schemas.dish import DishCreate, DishDisplay, DishDelete, DishUpdate, DishName
+from core.database import get_db
+from core.auth import is_admin
+from utils.redis import serialize, deserialize
 
 router = APIRouter(
     prefix='/dishes',

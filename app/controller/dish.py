@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from app.model.dish import Dish
+from model.dish import Dish
 
 
 class DishController:

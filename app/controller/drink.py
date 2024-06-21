@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from app.model.drink import Drink
+from model.drink import Drink
 
 
 class DrinkController:

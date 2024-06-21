@@ -1,10 +1,10 @@
 from typing import List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.controller.order import OrderController
-from app.core.auth import is_admin
-from app.core.database import get_db
-from app.schemas.order import OrderDisplay, OrderUpdate, OrderDelete
+from controller.order import OrderController
+from core.auth import is_admin
+from core.database import get_db
+from schemas.order import OrderDisplay, OrderUpdate, OrderDelete
 
 router = APIRouter(
     prefix='/orders',

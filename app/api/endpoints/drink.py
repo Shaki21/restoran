@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.controller.drink import DrinkController
-from app.core.redis import redis_client
-from app.schemas.drink import DrinkCreate, DrinkDisplay, DrinkDelete, DrinkUpdate, DrinkName
-from app.core.database import get_db
-from app.core.auth import is_admin
-from app.utils.redis import serialize, deserialize
+from controller.drink import DrinkController
+from core.redis import redis_client
+from schemas.drink import DrinkCreate, DrinkDisplay, DrinkDelete, DrinkUpdate, DrinkName
+from core.database import get_db
+from core.auth import is_admin
+from utils.redis import serialize, deserialize
 
 router = APIRouter(
     prefix='/drinks',

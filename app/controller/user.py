@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from app.model.user import User
-from app.core.hash import Hash
+from model.user import User
+from core.hash import Hash
 
 
 class UserController:

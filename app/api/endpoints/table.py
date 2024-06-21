@@ -1,10 +1,10 @@
 from typing import List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.controller.table import TableController
-from app.schemas.table import TableDisplay
-from app.core.database import get_db
-from app.core.auth import is_admin
+from controller.table import TableController
+from schemas.table import TableDisplay
+from core.database import get_db
+from core.auth import is_admin
 
 router = APIRouter(
     prefix='/tables',
